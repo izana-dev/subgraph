@@ -1,0 +1,129 @@
+specVersion: 0.0.4
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AddCollectionSC
+    network: sepolia
+    source:
+      address: "0xE21E35183c22f7B384ef3AF5807DdA03Dd2De1C3"
+      abi: AddCollectionSC
+      startBlock: 5960512
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Collection
+      abis:
+        - name: AddCollectionSC
+          file: AddCollectionSC/abis/AddCollectionSC.json
+      eventHandlers:
+        - event: AddCollection(address)
+          handler: handleAddCollection
+      file: AddCollectionSC/AddCollectionSC.wasm
+  - kind: ethereum
+    name: Factory
+    network: sepolia
+    source:
+      address: "0xc0262Eb8e752318cbaeAf9884f38a44a7DA27926"
+      abi: Factory
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Collection
+      abis:
+        - name: Factory
+          file: Factory/abis/Factory.json
+      eventHandlers:
+        - event: CollectionDeployed(address,address,string)
+          handler: handleCollectionDeployed
+      file: AddCollectionSC/AddCollectionSC.wasm
+  - kind: ethereum
+    name: MarketExchange
+    network: sepolia
+    source:
+      address: "0xE664Ab5D56Fcd7bc9692F4E86083fABDE69c0E09"
+      abi: Exchange
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Order
+      abis:
+        - name: Exchange
+          file: MarketExchange/abis/Exchange.json
+      eventHandlers:
+        - event: OrdersMatched(bytes32,bytes32,address,address,uint256,uint256,address,uint256,indexed
+            bytes32)
+          handler: handleOrdersMatched
+        - event: OrderCancelled(indexed bytes32)
+          handler: handleOrderCancelled
+      file: AddCollectionSC/AddCollectionSC.wasm
+  - kind: ethereum
+    name: RoyaltyFeeRegistry
+    network: sepolia
+    source:
+      address: "0xEED76cf025dcD899374c989e85b9B89E23139B99"
+      abi: RoyaltyFeeRegistry
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Collection
+        - RoyaltyFee
+      abis:
+        - name: RoyaltyFeeRegistry
+          file: RoyaltyFeeRegistry/abis/RoyaltyFeeRegistry.json
+      eventHandlers:
+        - event: RoyaltyFeeUpdate(indexed address,indexed address,indexed address,uint256)
+          handler: handleRoyaltyFeeUpdate
+        - event: NFTRoyaltyFeeUpdate(indexed uint256,indexed address,indexed address,uint256)
+          handler: handleNFTRoyaltyFeeUpdate
+      file: AddCollectionSC/AddCollectionSC.wasm
+templates:
+  - kind: ethereum/contract
+    name: NonUniqueCollectible
+    network: sepolia
+    source:
+      abi: NonUniqueCollectible
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: AddCollectionSC/AddCollectionSC.wasm
+      entities:
+        - Collection
+        - Collectible
+      abis:
+        - name: NonUniqueCollectible
+          file: NonUniqueCollectible/abis/NonUniqueCollectible.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+  - kind: ethereum/contract
+    name: UniqueCollectible
+    network: sepolia
+    source:
+      abi: UniqueCollectible
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: AddCollectionSC/AddCollectionSC.wasm
+      entities:
+        - Collection
+        - Collectible
+      abis:
+        - name: UniqueCollectible
+          file: UniqueCollectible/abis/UniqueCollectible.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer

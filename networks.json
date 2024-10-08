@@ -1,0 +1,30 @@
+{
+  "sepolia": {
+    "AddCollectionSC": {
+      "address": "0xE21E35183c22f7B384ef3AF5807DdA03Dd2De1C3"
+    },
+    "Exchange": {
+      "address": "0xE664Ab5D56Fcd7bc9692F4E86083fABDE69c0E09"
+    },
+    "Factory": {
+      "address": "0xc0262Eb8e752318cbaeAf9884f38a44a7DA27926"
+    },
+    "RoyaltyFeeRegistry": {
+      "address": "0xEED76cf025dcD899374c989e85b9B89E23139B99"
+    }
+  },
+  "polygon-amoy": {
+    "AddCollectionSC": {
+      "address": "0xf499483d090dd097010B659dc29db83FB143A00e"
+    },
+    "Factory": {
+      "address": "0xB2ACf00163f4ac3D0A0F5970C86381dbc6BA9805"
+    },
+    "Exchange": {
+      "address": "0x54F4292C5518C9F71f198eaDDc38471946b118e2"
+    },
+    "RoyaltyFeeRegistry": {
+      "address": "0x73100949d9112B2DDce2204DBaa13B153D988150"
+    }
+  }
+}

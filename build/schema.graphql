@@ -1,0 +1,47 @@
+type Collection @entity {
+  id: ID!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+  tokens: [Collectible!]! @derivedFrom(field: "collection")
+}
+
+type Collectible @entity {
+  id: ID!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+  amount: String!
+  collection: Collection!
+  to: String!
+  tokenId: BigInt!
+  from: String!
+  tx: String!
+}
+
+type Order @entity {
+  id: ID!
+  timestamp: BigInt!
+  cancelHash: String!
+  price: String!
+  sellHash: String!
+  buyHash: String!
+}
+
+type RoyaltyFee @entity {
+  id: ID!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+  collection: String!
+  setter: String!
+  receiver: String!
+  fee: String!
+}
+
+type NFTRoyaltyFee @entity {
+  id: ID!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+  tokenId: String!
+  setter: String!
+  receiver: String!
+  fee: String!
+}
